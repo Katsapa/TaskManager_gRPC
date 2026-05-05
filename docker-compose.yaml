@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17.6
+    container_name: grpcDb
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: myDB
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:

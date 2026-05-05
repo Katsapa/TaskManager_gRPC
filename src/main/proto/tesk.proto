@@ -4,10 +4,15 @@ option java_package = "com.katsapa.taskmanager.grpc";
 option java_outer_classname = "TaskProto";
 
 service TaskService {
-  rpc CreateTask (CreateTaskRequest) returns (TaskResponse);       // Unary
-  rpc ListTasks  (ListTasksRequest)  returns (stream TaskResponse); // Server Streaming
+  rpc CreateTask (CreateTaskRequest) returns (TaskResponse);
+  rpc ListTasks  (ListTasksRequest)  returns (stream TaskResponse);
   rpc GetTask    (GetTaskRequest)    returns (TaskResponse);
   rpc UpdateTaskStatus (UpdateStatusRequest) returns (TaskResponse);
+}
+
+enum TaskStatus{
+    DURING = 0;
+    COMPLETED = 1;
 }
 
 message CreateTaskRequest {
@@ -16,19 +21,19 @@ message CreateTaskRequest {
 }
 
 message TaskResponse {
-  string id = 1;
+  int64 id = 1;
   string title = 2;
   string description = 3;
-  string status = 4;
+  optional TaskStatus status = 4;
 }
 
 message GetTaskRequest {
-  string id = 1;
+  int64 id = 1;
 }
 
 message ListTasksRequest {}
 
 message UpdateStatusRequest {
-  string id = 1;
+  int64 id = 1;
   string status = 2;
 }
